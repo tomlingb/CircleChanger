@@ -4,14 +4,16 @@ A problem in which to practice:
   -- using SEQUENCES
 
 Authors: Valerie Galluzzi, David Mutchler, Dave Fisher, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Geoffrey Tomlinson.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
+import math
 import random
 import sys
 import time
 import m1t_test_CircleChanger as m1_tests
+
 
 ########################################################################
 # IMPORTANT:
@@ -20,6 +22,7 @@ import m1t_test_CircleChanger as m1_tests
 
 
 def main():
+    run_test_init()
     """
     Calls the   TEST   functions in this module, but ONLY if
     the method to be tested has at least a partial implementation.
@@ -91,8 +94,17 @@ class CircleChanger(object):
         # makes the animations go N times SLOWER.
         # --------------------------------------------------------------
 
+        self.x = x
+        self.y = y
+        self.center = rg.Point(self.x, self.y)
+        self.radius = radius
+        self.fill_color = fill_color
+        self.colors = colors
+        self.circle = rg.Circle(self.center, self.radius)
+        self.circle.fill_color = self.fill_color
+
         ################################################################
-        # TODO: 2.
+        # DONE: 2.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_init   function (below).
         #   Third, implement and test this method.
@@ -191,6 +203,11 @@ class CircleChanger(object):
         Type hints:
             :type point: rg.Point
         """
+
+        distance = math.sqrt((point.x - self.center.x) ** 2 + (point.y -
+                                                               self.center.y) ** 2)
+        return distance
+
         ################################################################
         # TODO: 3.
         #   First, READ the doc-string (specification) above.
@@ -457,7 +474,8 @@ def run_test_init():
     m1_tests.start_drawing('Testing: the   __init__   method')
 
     # Construct two CircleChanger objects:
-    circle_changer1 = CircleChanger(100, 150, 100, 'blue', ('red', 'blue', 'green'))
+    circle_changer1 = CircleChanger(100, 150, 100, 'blue',
+                                    ('red', 'blue', 'green'))
     circle_changer2 = CircleChanger(300, 50, 30, 'yellow', ('green', 'gold'))
 
     # Print and draw them:
@@ -522,7 +540,7 @@ def run_test_swell_or_shrink_once():
     print('After construction:')
     circle_changer1 = CircleChanger(200, 150, 30, 'blue',
                                     ('blue', 'yellow', 'green',
-                                        'aquamarine', 'brown'))
+                                     'aquamarine', 'brown'))
     print(circle_changer1)
     circle_changer1.draw()
 
@@ -556,6 +574,7 @@ def run_test_swell_or_shrink_once():
     Left circle is bigger (radius 130), still BLUE but thickness 13,
     Right circle is smaller (radius 20), GREEN with thickness 3,
     Middle circle is bigger (radius 50), YELLOW with thickness 6.""")
+
 
 #     # Apply the   swell_or_shrink_once  method to each a second time:
 #     circle_changer1.swell_or_shrink_once(-80)
@@ -595,7 +614,7 @@ def run_test_swell_or_shrink_repeatedly():
     print('After construction:')
     circle_changer1 = CircleChanger(200, 150, 30, 'blue',
                                     ('blue', 'yellow', 'green',
-                                        'aquamarine', 'brown'))
+                                     'aquamarine', 'brown'))
     print(circle_changer1)
     circle_changer1.draw("""
     A BLUE circle at (200, 150) with radius 30 and thickness 1.""")
@@ -659,7 +678,7 @@ def run_test_swallow():
     # has a   colors   attribute that is the CONCATENATION
     # of the  colors   attributes of the swallowed CircleChangers.
     if circle_changer3.colors != (circle_changer4.colors +
-                                  circle_changer5.colors):
+                                      circle_changer5.colors):
         message = """The   colors   instance variable
     of the swallowing CircleChanger (the one RETURNED by
     the   swallow   method) is wrong.
@@ -707,7 +726,7 @@ def run_test_change_color():
     print(circle_changer1)
     circle_changer2 = CircleChanger(350, 130, 50, 'purple',
                                     ('yellow', 'magenta', 'blue',
-                                        'green', 'yellow', 'aquamarine'))
+                                     'green', 'yellow', 'aquamarine'))
     print(circle_changer2)
     circle_changer2.draw("""
     A BLACK circle at (100, 100) with radius 70,
@@ -775,7 +794,7 @@ def run_test_change_to_original_color():
     print(circle_changer1)
     circle_changer2 = CircleChanger(280, 100, 100, 'purple',
                                     ('yellow', 'magenta', 'blue',
-                                        'green', 'yellow', 'aquamarine'))
+                                     'green', 'yellow', 'aquamarine'))
     print(circle_changer2)
     circle_changer2.draw("""
     A BLACK circle at (100, 100) with radius 100,
@@ -805,7 +824,7 @@ def run_test_change_to_original_color():
 
 def run_test_change_to_next_color_in_tuple():
     """ Tests the   change_to_next_color_in_tuple   method. """
-#     m1_tests.change_to_next_color()  # This runs OUR tests.
+    #     m1_tests.change_to_next_color()  # This runs OUR tests.
 
     # This is a VISUAL test.
     # Construct 2 CircleChanger objects, printing and drawing them.
@@ -819,7 +838,7 @@ def run_test_change_to_next_color_in_tuple():
     print(circle_changer1)
     circle_changer2 = CircleChanger(280, 100, 40, 'purple',
                                     ('yellow', 'magenta', 'blue',
-                                        'green', 'yellow', 'aquamarine'))
+                                     'green', 'yellow', 'aquamarine'))
     print(circle_changer2)
     circle_changer2.draw("""
     A BLACK circle at (100, 100) with radius 100,
