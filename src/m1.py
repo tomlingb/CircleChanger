@@ -29,7 +29,7 @@ def main():
     That is, a  TEST   function will not be called
     until you begin work on the code that it is testing.
     """
-    if m1_tests.is_implemented('__init__', 20):
+    if m1_tests.is_implemented('__init__', 10):
         run_test_init()
     if m1_tests.is_implemented('get_distance_from'):
         run_test_get_distance_from()
@@ -94,14 +94,9 @@ class CircleChanger(object):
         # makes the animations go N times SLOWER.
         # --------------------------------------------------------------
 
-        self.x = x
-        self.y = y
-        self.center = rg.Point(self.x, self.y)
-        self.radius = radius
-        self.fill_color = fill_color
         self.colors = colors
-        self.circle = rg.Circle(self.center, self.radius)
-        self.circle.fill_color = self.fill_color
+        self.circle = rg.Circle(rg.Point(x, y), radius)
+        self.circle.fill_color = fill_color
 
         ################################################################
         # DONE: 2.
@@ -204,12 +199,12 @@ class CircleChanger(object):
             :type point: rg.Point
         """
 
-        distance = math.sqrt((point.x - self.center.x) ** 2 + (point.y -
-                                                               self.center.y) ** 2)
+        distance = self.circle.center.get_distance_from(point)
+
         return distance
 
         ################################################################
-        # TODO: 3.
+        # DONE: 3.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_get_distance_from   function
         #   (below).  Third, implement and test this method.
@@ -253,35 +248,44 @@ class CircleChanger(object):
         Type hints:
             :type amount_to_swell_or_shrink: int
         """
-        ################################################################
-        # TODO: 4.
-        #   First, READ the doc-string (specification) above.
-        #   Second, READ the   run_test_swell_or_shrink_once   function
-        #   (below).  Third, implement and test this method.
-        ################################################################
-        #
-        # IMPORTANT  ** HINT ** Regarding randomness:
-        #
-        #   The following statement chooses a random number between
-        #   3 and 15, inclusive:
-        #       r = random.randrange(3, 16)
-        #   Note the 16 --  randrange   is like   range   in that
-        #   it does NOT include the ending number.
-        #   Use the above to help set the outline_thickness.
-        #
-        #   To get a random COLOR, you need to get a random INDEX
-        #   into the   self.colors   tuple.  So something like:
-        #       r_index = random.randrange(0, ??)
-        #
-        #   where you figure out what ?? must be, and then
-        #
-        #       r_color = self.colors[r_index]
-        #
-        #   will give a randomly chosen color from self.colors.
-        #
-        #   Simply   ** ASK FOR HELP **
-        #            if this does not make sense to you.
-        ################################################################
+
+        self.circle.radius += amount_to_swell_or_shrink
+        if self.circle.radius < 1:
+            self.circle.radius = 1
+        self.circle.outline_thickness = random.randrange(3, 16)
+        self.circle.fill_color = self.colors[random.randrange(0,
+                                                              len(
+                                                                  self.colors))]
+
+    ################################################################
+    # DONE: 4.
+    #   First, READ the doc-string (specification) above.
+    #   Second, READ the   run_test_swell_or_shrink_once   function
+    #   (below).  Third, implement and test this method.
+    ################################################################
+    #
+    # IMPORTANT  ** HINT ** Regarding randomness:
+    #
+    #   The following statement chooses a random number between
+    #   3 and 15, inclusive:
+    #       r = random.randrange(3, 16)
+    #   Note the 16 --  randrange   is like   range   in that
+    #   it does NOT include the ending number.
+    #   Use the above to help set the outline_thickness.
+    #
+    #   To get a random COLOR, you need to get a random INDEX
+    #   into the   self.colors   tuple.  So something like:
+    #       r_index = random.randrange(0, ??)
+    #
+    #   where you figure out what ?? must be, and then
+    #
+    #       r_color = self.colors[r_index]
+    #
+    #   will give a randomly chosen color from self.colors.
+    #
+    #   Simply   ** ASK FOR HELP **
+    #            if this does not make sense to you.
+    ################################################################
 
     def swell_or_shrink_repeatedly(self,
                                    amount_to_swell_or_shrink,
@@ -335,12 +339,19 @@ class CircleChanger(object):
             :type amount_to_swell_or_shrink: int
             :type times_to_swell_or_shrink:  int
         """
-        ################################################################
-        # TODO: 5.
-        #   First, READ the doc-string (specification) above.
-        #   Second, READ the  run_test_swell_or_shrink_repeatedly  function
-        #   (below).  Third, implement and test this method.
-        ################################################################
+        for k in range(times_to_swell_or_shrink):
+            CircleChanger.swell_or_shrink_once(self, amount_to_swell_or_shrink)
+            CircleChanger.draw(self)
+            CircleChanger.swell_or_shrink_once(self,
+                                               amount_to_swell_or_shrink * -1)
+            CircleChanger.draw(self)
+
+    ################################################################
+    # DONE: 5.
+    #   First, READ the doc-string (specification) above.
+    #   Second, READ the  run_test_swell_or_shrink_repeatedly  function
+    #   (below).  Third, implement and test this method.
+    ################################################################
 
     def swallow(self, other_circle_changer):
         """
@@ -367,8 +378,17 @@ class CircleChanger(object):
             :type other_circle_changer: CircleChanger
             :rtype CircleChanger
         """
+
+        new_colors = self.colors + other_circle_changer.colors
+        radius = self.get_distance_from(other_circle_changer.circle.center) / 2
+        center = self.circle.center.halfway_to(
+            other_circle_changer.circle.center)
+        new_circle_changer = CircleChanger(center.x, center.y, radius, "red",
+                                           new_colors)
+        return new_circle_changer
+
         ################################################################
-        # TODO: 6.
+        # DONE: 6.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_swallow   function (below).
         #   Third, implement and test this method.
@@ -398,6 +418,9 @@ class CircleChanger(object):
         Type hints:
             :type index_of_color: int
         """
+
+        
+
         ################################################################
         # TODO: 7.
         #   First, READ the doc-string (specification) above.

@@ -14,7 +14,7 @@ import m1
 
 ########################################################################
 # Set this to False if you want to see ONLY failures (if there are any).
-PRINT_SUCCESSES = False
+PRINT_SUCCESSES = True
 ########################################################################
 
 # CONSIDER: I should have NOT used these global variables,
@@ -36,8 +36,8 @@ def main():
     run_test_swallow()
     run_test_change_color()
     run_test_change_to_original_color()
-#     run_test_swell_to_prime()
-#     run_test_change_to_previous_color()
+    #     run_test_swell_to_prime()
+    #     run_test_change_to_previous_color()
     print('***** You accidentally ran the m1t_test_CircleChanger file ***** ')
     print('You should only run m1.py')
 
@@ -94,6 +94,7 @@ def is_implemented(circle_changer_method, expected_lines=2):
     lines_left = expected.splitlines()
 
     return len(lines_left) > expected_lines
+
 
 #     # [OLDER APPROACH} There is probably a better way to do this...
 #     method = getattr(m1.CircleChanger, circle_changer_method)
@@ -175,6 +176,7 @@ def evaluate_circle_changer(circle_changer,
 
     evaluate_test(colors, circle_changer.colors,
                   'Testing the   colors   attribute:')
+
 
 ########################################################################
 # The TEST functions for the  CircleChanger  class begin here.
@@ -339,8 +341,8 @@ def run_test_swell_or_shrink_once():
             amount = 10 * k * (2 * j - 3)
             total = total + amount
             circle_changers[k - 1].swell_or_shrink_once(amount)
-#             print(circle_changers[k - 1].circle.fill_color,
-#                   circle_changers[k - 1].circle.outline_thickness)
+            #             print(circle_changers[k - 1].circle.fill_color,
+            #                   circle_changers[k - 1].circle.outline_thickness)
             evaluate_circle_changer(circle_changers[k - 1],
                                     xs[k - 1], ys[k - 1],
                                     rs[k - 1] + total,
@@ -586,8 +588,8 @@ def run_test_change_to_previous_color():
             random.shuffle(js)
             j2s = list(range(len(colors)))
             random.shuffle(j2s)
-#             print(js)
-#             print(j2s)
+            #             print(js)
+            #             print(j2s)
 
             for j in range(len(colors)):
                 circle_changers[k].circle.fill_color = colors[js[j]]
@@ -604,6 +606,7 @@ def run_test_change_to_previous_color():
     print('-----------------------------------------------------------')
     print('Here is the test in m1 itself:')
     print('-----------------------------------------------------------')
+
 
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
