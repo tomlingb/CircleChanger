@@ -29,20 +29,20 @@ def main():
     That is, a  TEST   function will not be called
     until you begin work on the code that it is testing.
     """
-    # if m1_tests.is_implemented('__init__', 10):
-    # run_test_init()
-    # if m1_tests.is_implemented('get_distance_from'):
-    # run_test_get_distance_from()
-    # if m1_tests.is_implemented('swell_or_shrink_once'):
-    # run_test_swell_or_shrink_once()
-    # if m1_tests.is_implemented('swell_or_shrink_repeatedly', 4):
-    # run_test_swell_or_shrink_repeatedly()
-    # if m1_tests.is_implemented('swallow'):
-    # run_test_swallow()
-    # if m1_tests.is_implemented('change_color'):
-    # run_test_change_color()
-    # if m1_tests.is_implemented('change_to_original_color'):
-    # run_test_change_to_original_color()
+    if m1_tests.is_implemented('__init__', 10):
+        run_test_init()
+    if m1_tests.is_implemented('get_distance_from'):
+        run_test_get_distance_from()
+    if m1_tests.is_implemented('swell_or_shrink_once'):
+        run_test_swell_or_shrink_once()
+    if m1_tests.is_implemented('swell_or_shrink_repeatedly', 4):
+        run_test_swell_or_shrink_repeatedly()
+    if m1_tests.is_implemented('swallow'):
+        run_test_swallow()
+    if m1_tests.is_implemented('change_color'):
+        run_test_change_color()
+    if m1_tests.is_implemented('change_to_original_color'):
+        run_test_change_to_original_color()
     if m1_tests.is_implemented('change_to_next_color_in_tuple'):
         run_test_change_to_next_color_in_tuple()
 
