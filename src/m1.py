@@ -22,27 +22,27 @@ import m1t_test_CircleChanger as m1_tests
 
 
 def main():
-    run_test_init()
+    # run_test_init()
     """
     Calls the   TEST   functions in this module, but ONLY if
     the method to be tested has at least a partial implementation.
     That is, a  TEST   function will not be called
     until you begin work on the code that it is testing.
     """
-    if m1_tests.is_implemented('__init__', 10):
-        run_test_init()
-    if m1_tests.is_implemented('get_distance_from'):
-        run_test_get_distance_from()
-    if m1_tests.is_implemented('swell_or_shrink_once'):
-        run_test_swell_or_shrink_once()
-    if m1_tests.is_implemented('swell_or_shrink_repeatedly', 4):
-        run_test_swell_or_shrink_repeatedly()
-    if m1_tests.is_implemented('swallow'):
-        run_test_swallow()
-    if m1_tests.is_implemented('change_color'):
-        run_test_change_color()
-    if m1_tests.is_implemented('change_to_original_color'):
-        run_test_change_to_original_color()
+    # if m1_tests.is_implemented('__init__', 10):
+    # run_test_init()
+    # if m1_tests.is_implemented('get_distance_from'):
+    # run_test_get_distance_from()
+    # if m1_tests.is_implemented('swell_or_shrink_once'):
+    # run_test_swell_or_shrink_once()
+    # if m1_tests.is_implemented('swell_or_shrink_repeatedly', 4):
+    # run_test_swell_or_shrink_repeatedly()
+    # if m1_tests.is_implemented('swallow'):
+    # run_test_swallow()
+    # if m1_tests.is_implemented('change_color'):
+    # run_test_change_color()
+    # if m1_tests.is_implemented('change_to_original_color'):
+    # run_test_change_to_original_color()
     if m1_tests.is_implemented('change_to_next_color_in_tuple'):
         run_test_change_to_next_color_in_tuple()
 
@@ -95,6 +95,8 @@ class CircleChanger(object):
         # --------------------------------------------------------------
 
         self.colors = colors
+        self.count = 0
+        self.firstcolor = fill_color
         self.circle = rg.Circle(rg.Point(x, y), radius)
         self.circle.fill_color = fill_color
 
@@ -419,10 +421,10 @@ class CircleChanger(object):
             :type index_of_color: int
         """
 
-        
+        self.circle.fill_color = self.colors[index_of_color]
 
         ################################################################
-        # TODO: 7.
+        # DONE: 7.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_change_color   function (below).
         #   Third, implement and test this method.
@@ -438,8 +440,11 @@ class CircleChanger(object):
                the same color that it was when this CircleChanger
                was constructed.
         """
+
+        self.circle.fill_color = self.firstcolor
+
         ################################################################
-        # TODO: 8.
+        # DONE: 8.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_change_to_original_color   function
         #   (below).  Third, implement and test this method.
@@ -477,8 +482,12 @@ class CircleChanger(object):
         Note: Other methods that affect this CircleChanger's circle's
         fill color have no effect on or interaction with this method.
         """
+
+        self.circle.fill_color = self.colors[self.count % len(self.colors)]
+        self.count += 1
+
         ################################################################
-        # TODO: 9.
+        # DONE: 9.
         #   First, READ the doc-string (specification) above.
         #   Second, READ the   run_test_change_to_next_color_in_tuple
         #   function (below).  Third, implement and test this method.
